@@ -3,13 +3,19 @@ import heart from "../images/heart.png";
 import fillHeart from "../images/fill-heart.png";
 import { Card, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
-export default function RecipeCard({recipe, handleFavItem, handleRecipeItem, currentUser}) {
+export default function RecipeCard({recipe, handleFavItem, handleRecipeItem}) {
   const state = useSelector(state => state.authReducer);
   const fav = state.favorite;
   const handleNoUserClick = () => {
-    alert("Please login here to make your favorite recipe")
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Please login first to make favorite recipe',
+      confirmButtonText: 'Ok'
+    })
   }
+
   return (
     <Card className="rounded-0 font-heading h-100 cursor-pointer">
       <Card.Img

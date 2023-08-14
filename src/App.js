@@ -14,51 +14,42 @@ import { useSelector } from 'react-redux';
 import CreateRecipe from './components/CreateRecipe';
 
 
-
 function App() {
+  // Get Recipe Data from localstorage
   let Recipies = localStorage.getItem("Recipies");
+  // All Recipe is in Recipe Data , and Also update from localstorage
   const [recipeData, setRecipeData] = useState(JSON.parse(Recipies) || Recipes);
+  // Search Recipe Filtered is here
   const [searchRecipe, setSearchRecipe] = useState(null);
+  // Give message for if search recipe is not found
   const [searchRecipePopup, setSearchRecipePopup] = useState(null);
-  const [fav, setFav] = useState([])
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loginData, setLoginData] = useState([{
-    id: 1412,
-    name: "Wasim Ali Sayyed",
-    email: "vsmali.6640@gmail.com",
-    password: "Ali@06640",
-    favRecipe: []
-  }]);
+  // Show Item
   const [recipeItem, setRecipeItem] = useState();
   const [showRecipe, setShowRecipe] = useState(false);
+  // For Goto other page
   const navigate = useNavigate();
+  // Get state value from authReducer
   const state = useSelector(state => state.authReducer);
-
-  let data = localStorage.getItem("authData");
-  let currentUserData = localStorage.getItem("currentUserData");
-  let currentUserFavItem = localStorage.getItem("currentUserFavItem");
-
+  // On render Parse recipe data from localstorage
   useEffect(() => {
-    
     if(Recipies){
       setRecipeData(JSON.parse(Recipies));
     }
-      setLoginData(JSON.parse(data))
-      setCurrentUser(JSON.parse(currentUserData))
-      setFav(JSON.parse(currentUserFavItem))
   }, [])
+  // Set authentication data to local storage
   useEffect(() => {
     localStorage.setItem("authData", JSON.stringify(state.loginData));
   }, [state.loginData])
+  // Set Current User data to local storage with favorite recipe id's
   useEffect(() => {
       localStorage.setItem("currentUserData", JSON.stringify(state.currentUser));
       localStorage.setItem("currentUserFavItem", JSON.stringify(state.favorite));
   }, [state.currentUser, state.favorite])
-
+  // Set recipe data to local storage
   useEffect(() => {
     localStorage.setItem("Recipies", JSON.stringify(recipeData))
   }, [state.currentUser])
-
+  // Creating new recipe
   const createRecipe = (newRecipe) => {
 
     setRecipeData([...recipeData, newRecipe]);
@@ -66,12 +57,12 @@ function App() {
 
     navigate('/recipes')
   }
-
+  // Show Recipe Item
   const handleRecipeItem = (item) => {
     setRecipeItem(item)
     setShowRecipe(true)
   }
-
+  // Search Recipe by its name and category
   const handleSearch = (e, searchText) => { 
     e.preventDefault();
     const searchValue = searchText.current.value;
@@ -98,15 +89,23 @@ function App() {
 }
   return (
     <>
-    <div className="recipe-app min-vh-100 d-flex align-items-center" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${bannerImage})`}}>
-    <Header currentUser={currentUser} setShowRecipe={setShowRecipe} onSearch={handleSearch}/>
+    <div className="recipe-app min-vh-100 d-flex align-items-center position-relative" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${bannerImage})`}}>
+      {/* Header Component */}
+    <Header setShowRecipe={setShowRecipe} onSearch={handleSearch}/>
     <Routes>
+      {/* Home Component */}
       <Route path='/' element={<Dashboard/>} />
-      <Route path='/login' element={<Login  loginData={loginData} currentUser={currentUser}/>}/>
-      <Route path='/signup' element={<Signup loginData={loginData} currentUser={currentUser}/>}/>
-      <Route path='/profile' element={<Profile currentUser={currentUser} setShowRecipe={setShowRecipe}/>}></Route>
-      <Route path="/recipes" element={<RecipeSection fav={fav} setFav={setFav} recipeData={recipeData} handleRecipeItem={handleRecipeItem} showRecipe={showRecipe} setShowRecipe={setShowRecipe} recipeItem={recipeItem} currentUser={currentUser} searchRecipe={searchRecipe} setSearchRecipe={setSearchRecipe} searchRecipePopup={searchRecipePopup} setSearchRecipePopup={setSearchRecipePopup} onSearch={handleSearch}/>}></Route>
-      <Route path='/favorite' element={<Favourite currentUser={currentUser} fav={fav} handleRecipeItem={handleRecipeItem} showRecipe={showRecipe} setShowRecipe={setShowRecipe} recipeItem={recipeItem} recipeData={recipeData}/>}></Route>
+      {/* Login Component */}
+      <Route path='/login' element={<Login/>}/>
+      {/* Signup Component */}
+      <Route path='/signup' element={<Signup/>}/>
+      {/* Profile Component */}
+      <Route path='/profile' element={<Profile setShowRecipe={setShowRecipe}/>}></Route>
+      {/* Recipe Section Component */}
+      <Route path="/recipes" element={<RecipeSection recipeData={recipeData} handleRecipeItem={handleRecipeItem} showRecipe={showRecipe} setShowRecipe={setShowRecipe} recipeItem={recipeItem} searchRecipe={searchRecipe} setSearchRecipe={setSearchRecipe} searchRecipePopup={searchRecipePopup} setSearchRecipePopup={setSearchRecipePopup} onSearch={handleSearch}/>}></Route>
+      {/* Favourite Component */}
+      <Route path='/favorite' element={<Favourite handleRecipeItem={handleRecipeItem} showRecipe={showRecipe} setShowRecipe={setShowRecipe} recipeItem={recipeItem} recipeData={recipeData}/>}></Route>
+      {/* CreateRecipe Component */}
       <Route path='/create-recipe' element={<CreateRecipe createRecipe={createRecipe} recipeData={recipeData}/>}></Route>
     </Routes>
     </div>

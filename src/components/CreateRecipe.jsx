@@ -2,8 +2,6 @@ import React, { useRef, useState } from 'react';
 import { Form, Container, Row, Button } from 'react-bootstrap';
 import bannerImage from "../images/food-pattern-bg.png";
 import { useSelector } from 'react-redux';
-// import{ resizeImageFile } from "react-image-file-resizer";
-import Resizer from "react-image-file-resizer"
 
 export default function CreateRecipe({createRecipe, recipeData}) {
     const state = useSelector(state => state.authReducer)
@@ -13,7 +11,6 @@ export default function CreateRecipe({createRecipe, recipeData}) {
     const recipeImageRef = useRef();
     const recipeCategoryRef = useRef();
     const [ error, setError] = useState(null)
-
 
     const handleCreateRecipe = (e) => {
         e.preventDefault();
@@ -56,9 +53,10 @@ export default function CreateRecipe({createRecipe, recipeData}) {
         
     }
   return (
-    <section className="section create-recipe-section w-100" >
+    <section className="section create-recipe-section w-100 font-heading" >
         <Container>
-        <Form onSubmit={(e) => handleCreateRecipe(e)}>
+        <div className="col-lg-6 mx-auto">
+        <Form onSubmit={(e) => handleCreateRecipe(e)} className='create-recipe-form'>
         <Form.Group className="mb-3" controlId="recipeCategory">
             <Form.Label>Category of recipe :</Form.Label>
             <Form.Control type="text" placeholder="Enter Recipe Category Name - Like Chicken, Mutton, Pizza, Veg etc" required ref={recipeCategoryRef}/>
@@ -78,12 +76,13 @@ export default function CreateRecipe({createRecipe, recipeData}) {
         </Form.Group>
         <Form.Group className="mb-3" controlId="recipeDescription">
             <Form.Label>Description :</Form.Label>
-            <Form.Control as="textarea" rows={3} required ref={recipeDescriptionRef} placeholder="Write your recipe description here"/>
+            <Form.Control as="textarea" rows={5} required ref={recipeDescriptionRef} placeholder="Write your recipe description here"/>
         </Form.Group>
         <div className="form-button">
-            <Button type='submit' variant='outline-warning' className='fw-bold' size='lg' style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,.5)), url(${bannerImage})` , backgroundSize: "contain"}}>Create Recipe</Button>
+            <Button type='submit' variant='warning' className='fw-bold' size='md'>Create Recipe</Button>
         </div>
         </Form>
+        </div>
         </Container>
     </section>
   )

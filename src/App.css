@@ -5,10 +5,15 @@
       transition: .3s ease;
   }
 }
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: 'Montserrat', sans-serif !important;
   margin: 0;
   --bs-body-color: #fefefe;
+  width: 100%;
+  position: relative;
 }
 section {
   padding: 120px 0;
@@ -57,6 +62,9 @@ header .nav-link.active {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.banner-title {
+  margin-bottom: 30px;
 }
 input.form-control,
 input.form-control:focus {
@@ -147,4 +155,10 @@ input.form-control:focus {
   width: 100%;
   margin-left: auto;
   margin-bottom: 20px;
+}
+.create-recipe-form {
+  padding: 40px 20px;
+  background: whitesmoke;
+  --bs-body-color: #111;
+  color: var(--bs-body-color);
 }

@@ -17,7 +17,7 @@ export default function Header({setShowRecipe, onSearch}) {
     <header className="fixed-top">
        <Navbar expand="lg">
       <Container fluid className='px-md-5'>
-        <Navbar.Brand href="#" className='navbar-brand d-inline-flex align-items-center position-relative py-4 fw-normal font-body'><img className='position-absolute start-0 header-logo' src={logo} alt="" width="80" /> Recipe Book</Navbar.Brand>
+        <Link to="/" className='navbar-brand d-inline-flex align-items-center position-relative py-4 fw-normal font-body'><img className='position-absolute start-0 header-logo' src={logo} alt="" width="80" /> Recipe Book</Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav

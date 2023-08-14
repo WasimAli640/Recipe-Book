@@ -38,7 +38,7 @@ export default function Favourite({handleRecipeItem, showRecipe, recipeItem, set
       }
     ]
   };
-  console.log(state.currentUser.favRecipe)
+  // console.log(state.currentUser.favRecipe)
 
   return (
     <section className="favourite-section min-vh-100 d-flex align-items-center w-100">
@@ -62,7 +62,7 @@ export default function Favourite({handleRecipeItem, showRecipe, recipeItem, set
                 </Card.Title>
                 {/* <Card.Text>{recipe.ingredients.substring(0, 200)}..</Card.Text> */}
                 <div className="recipe-card-button mt-auto d-flex justify-content-between align-items-center position-absolute top-50 start-50 translate-middle">
-                  <Button variant="primary" className='fav-recipe-card-btn rounded-pill' onClick={() => handleRecipeItem(recipe)}>
+                  <Button variant="warning" className='fw-semibold fav-recipe-card-btn rounded-pill' onClick={() => handleRecipeItem(recipe)}>
                     Show Recipe
                   </Button>
                 </div>
@@ -70,7 +70,7 @@ export default function Favourite({handleRecipeItem, showRecipe, recipeItem, set
             </Card>)} 
             </Slider>
             </>
-          : <div className='display-2 font-heading'>You Dont Have Any Favorite Recipe Yet OOPS !</div> : <RecipeItem recipeItem={recipeItem} setShowRecipe={setShowRecipe} />}
+          : <div className='display-2 font-heading'><div>OOPS !</div> You Dont Have Any Favorite Recipe Yet </div> : <RecipeItem recipeItem={recipeItem} setShowRecipe={setShowRecipe} />}
       </Container>
     </section>
   )

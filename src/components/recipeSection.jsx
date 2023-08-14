@@ -5,21 +5,17 @@ import RecipeCard from './recipeCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { favourite } from '../actions/type';
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 
 
-export default function RecipeSection({setSearchRecipe, searchRecipe, recipeData, onFav, handleCurrentUser, fav, setFav, handleRecipeItem , showRecipe, setShowRecipe, recipeItem, currentUser, searchRecipePopup, setSearchRecipePopup, onSearch}) {
-  // const state = useSelector(state => state.authReducer);
+export default function RecipeSection({setSearchRecipe, searchRecipe, recipeData, handleRecipeItem , showRecipe, setShowRecipe, recipeItem, currentUser, searchRecipePopup, setSearchRecipePopup, onSearch}) {
   const searchRef = useRef();
   const dispatch = useDispatch();
   const state = useSelector(state => state.authReducer);
   const [activeTab, setActiveTab] = useState("All");
-  // const [tab, setTab] = useState();
   const [filterData, setFilterData] = useState(recipeData);
   const navigate = useNavigate();
-  // const handleCreateTabs = () => {
-  //   const CreateTabs = recipeData.map((user) => user)
-  // }
   const handleTabs = (category) => {
     setSearchRecipe(null)
     if(category === 'All'){
@@ -41,9 +37,15 @@ export default function RecipeSection({setSearchRecipe, searchRecipe, recipeData
     navigate("/create-recipe")
   }
   else {
-    alert("Please login first to create recipe")
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Please login first to create recipe',
+      // icon: 'error',
+      confirmButtonText: 'Ok'
+    })
   }
  }
+
 //  console.log(activeTab)
 const uniqueCategories = [...new Set(recipeData.map((recipe) => recipe.category))];
   return (
@@ -59,6 +61,7 @@ const uniqueCategories = [...new Set(recipeData.map((recipe) => recipe.category)
               className="me-2"
               aria-label="Search"
               ref={searchRef}
+              onChange={(e) => onSearch(e, searchRef)}
               />
           <Button type='submit' variant="dark">Search</Button>
         </Form>
@@ -81,11 +84,11 @@ const uniqueCategories = [...new Set(recipeData.map((recipe) => recipe.category)
             <div className='display-5'>{searchRecipePopup}</div> :
             filterData && filterData.map((recipe) => 
             <Col lg={4} key={recipe.id} className='mb-4'>
-                <RecipeCard recipe={recipe} handleFavItem={() => handleFavItem(recipe.id)} fav={fav}  handleRecipeItem={handleRecipeItem} currentUser={currentUser}/>
+                <RecipeCard recipe={recipe} handleFavItem={() => handleFavItem(recipe.id)} handleRecipeItem={handleRecipeItem} currentUser={currentUser}/>
             </Col>)
             : searchRecipe.map((recipe) => 
               <Col lg={4} key={recipe.id} className='mb-4'>
-              <RecipeCard recipe={recipe} handleFavItem={() => handleFavItem(recipe.id)} fav={fav}  handleRecipeItem={handleRecipeItem} currentUser={currentUser}/>
+              <RecipeCard recipe={recipe} handleFavItem={() => handleFavItem(recipe.id)} handleRecipeItem={handleRecipeItem} currentUser={currentUser}/>
             </Col>
             )
           }

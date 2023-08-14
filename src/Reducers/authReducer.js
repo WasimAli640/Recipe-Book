@@ -1,6 +1,4 @@
-
 import { LOGIN_SUCCESS, LOGOUT, SET_FAVORITE, SIGNUP } from '../actions/type';
-// import { Recipes } from '../recipeData/data';
 
 const storedUser = JSON.parse(localStorage.getItem('currentUserData'));
 const storedFavorites = JSON.parse(localStorage.getItem('currentUserFavItem'));
@@ -23,9 +21,7 @@ const intialState = {
 const authReducer = (state = intialState, action) =>{
     switch(action.type){
         case LOGIN_SUCCESS :
-
                 const currentUserObject = state.loginData.find((user) => user.email === action.payload)
-                // console.log(currentUserObject)
                 if(currentUserObject){
                     return {
                         ...state,
@@ -34,8 +30,6 @@ const authReducer = (state = intialState, action) =>{
                     }
                 }
                 return state;
-                // const favorite = currentUserObject && currentUserObject.favRecipe.map((recipe) => recipe.id);
-                // state.favorite = [...state.favorite, favorite];
         case SIGNUP : 
             const newUser = {name: action.payload.name, email: action.payload.email, password: action.payload.password, id: state.loginData.length + 1, favRecipe: [] };
             return {
@@ -50,33 +44,35 @@ const authReducer = (state = intialState, action) =>{
                 favorite: null,
             } 
         case SET_FAVORITE :
+            // First Check Current User
             if(state.currentUser){
-                // const currentUserExist = state.loginData.find((user) => user.id === state.currentUser.id);
-
-                // if(currentUserExist){
-                    // const favouriteRecipe = Recipies && Recipies.find((recipe) => recipe.id === action.payload)
+                    // First Create variable Then Match id authentication data with currentUser
                     const updatedLoginData = state.loginData.map((user) => 
                     user.id === state.currentUser.id 
                     ? {
                         ...user,
+                        // Then Match the authentication fav recipe id with action.payload(id of recipe when user click on heart button)
                       favRecipe: user.favRecipe.includes(action.payload)
+                      // If its match then delete that fav recipe id
                           ? user.favRecipe.filter((recipeId) => recipeId !== action.payload)
+                          // If its not match then add that fav recipe id
                           : [...user.favRecipe, action.payload],
                     }
+                    // If current User is not match with authentication data then dont do anything
                     : user
 
                 );
+                // Create variable for currentUser Update 
                 const updatedCurrentUser = updatedLoginData.find((user) => user.id === state.currentUser.id);
+                // Create variable for update favorite recipe id
                 const updatedFavorite = updatedCurrentUser ? updatedCurrentUser.favRecipe : [];
-                // updatedCurrentUser?.favRecipe?.map(recipe => recipe.id) || [];
                     return {
+                        // Then All update all the variable as per their variables
                         ...state,
                         loginData : updatedLoginData,
                         currentUser: updatedCurrentUser,
                         favorite: updatedFavorite
                     };
-
-                // }
             }  else {
                 return state;
             }
