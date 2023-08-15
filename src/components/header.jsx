@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/type';
 
 
-export default function Header({setShowRecipe, onSearch}) {
+export default function Header({setShowRecipe}) {
   const state = useSelector((state) => state.authReducer);
-  // console.log(state)
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout())
@@ -22,7 +21,6 @@ export default function Header({setShowRecipe, onSearch}) {
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="ms-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
             navbarScroll
           >
             <Link className='nav-link' to="/">Home</Link>

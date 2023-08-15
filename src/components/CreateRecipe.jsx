@@ -1,10 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Form, Container, Row, Button } from 'react-bootstrap';
-import bannerImage from "../images/food-pattern-bg.png";
-import { useSelector } from 'react-redux';
+import { Form, Container, Button } from 'react-bootstrap';
 
 export default function CreateRecipe({createRecipe, recipeData}) {
-    const state = useSelector(state => state.authReducer)
     const recipeNameRef = useRef();
     const ingredientsRef = useRef();
     const recipeDescriptionRef = useRef();

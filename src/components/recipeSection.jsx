@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 
 
-export default function RecipeSection({setSearchRecipe, searchRecipe, recipeData, handleRecipeItem , showRecipe, setShowRecipe, recipeItem, currentUser, searchRecipePopup, setSearchRecipePopup, onSearch}) {
+export default function RecipeSection({setSearchRecipe, searchRecipe, recipeData, handleRecipeItem , showRecipe, setShowRecipe, recipeItem, searchRecipePopup, setSearchRecipePopup, onSearch}) {
   const searchRef = useRef();
   const dispatch = useDispatch();
   const state = useSelector(state => state.authReducer);
@@ -49,7 +49,7 @@ export default function RecipeSection({setSearchRecipe, searchRecipe, recipeData
 //  console.log(activeTab)
 const uniqueCategories = [...new Set(recipeData.map((recipe) => recipe.category))];
   return (
-    <section className="section recipes-section min-vh-100 d-flex align-items-center justify-content-center w-100">
+    <section className="section recipes-section min-vh-100 w-100">
         <Container>
         {!showRecipe ? 
         <>
@@ -84,11 +84,11 @@ const uniqueCategories = [...new Set(recipeData.map((recipe) => recipe.category)
             <div className='display-5'>{searchRecipePopup}</div> :
             filterData && filterData.map((recipe) => 
             <Col lg={4} key={recipe.id} className='mb-4'>
-                <RecipeCard recipe={recipe} handleFavItem={() => handleFavItem(recipe.id)} handleRecipeItem={handleRecipeItem} currentUser={currentUser}/>
+                <RecipeCard recipe={recipe} handleFavItem={() => handleFavItem(recipe.id)} handleRecipeItem={handleRecipeItem}/>
             </Col>)
             : searchRecipe.map((recipe) => 
               <Col lg={4} key={recipe.id} className='mb-4'>
-              <RecipeCard recipe={recipe} handleFavItem={() => handleFavItem(recipe.id)} handleRecipeItem={handleRecipeItem} currentUser={currentUser}/>
+              <RecipeCard recipe={recipe} handleFavItem={() => handleFavItem(recipe.id)} handleRecipeItem={handleRecipeItem}/>
             </Col>
             )
           }

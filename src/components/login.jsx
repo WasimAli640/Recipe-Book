@@ -14,9 +14,8 @@ export default function Login() {
     const [showProfile, setShowProfile] = useState(false);
     const dispatch = useDispatch();
     const state = useSelector((state) => state.authReducer);
-
-    // console.log(state)
     
+    // Handle login function
     const handleLogin = (e, emailRef, passwordRef) => {
         e.preventDefault();
         let email = emailRef.current.value; 

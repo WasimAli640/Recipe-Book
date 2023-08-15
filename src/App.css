@@ -4,6 +4,9 @@
   .btn {
       transition: .3s ease;
   }
+  .collpasing {
+    transition: all .3s ease !important;
+  }
 }
 * {
   box-sizing: border-box;

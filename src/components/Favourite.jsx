@@ -14,7 +14,6 @@ export default function Favourite({handleRecipeItem, showRecipe, recipeItem, set
     infinite: false,
     centerPadding: 60,
     speed: 500,
-    // slidesToShow: 3,
     slidesToScroll: 1, 
     variableWidth: true,
     responsive: [
@@ -38,7 +37,6 @@ export default function Favourite({handleRecipeItem, showRecipe, recipeItem, set
       }
     ]
   };
-  // console.log(state.currentUser.favRecipe)
 
   return (
     <section className="favourite-section min-vh-100 d-flex align-items-center w-100">
@@ -60,7 +58,6 @@ export default function Favourite({handleRecipeItem, showRecipe, recipeItem, set
                 <Card.Title className="recipe-title fav-recipe-title fs-4 w-100 fw-normal position-absolute bottom-0 mb-3 text-center">
                   {recipe.name.length > 25 ? `${recipe.name.substring(0,25)}...` : recipe.name }
                 </Card.Title>
-                {/* <Card.Text>{recipe.ingredients.substring(0, 200)}..</Card.Text> */}
                 <div className="recipe-card-button mt-auto d-flex justify-content-between align-items-center position-absolute top-50 start-50 translate-middle">
                   <Button variant="warning" className='fw-semibold fav-recipe-card-btn rounded-pill' onClick={() => handleRecipeItem(recipe)}>
                     Show Recipe
